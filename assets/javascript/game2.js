@@ -16,15 +16,18 @@ var stat = document.getElementById("status");
 // initialize computer choice
 var computerChoice = wordBank[Math.floor(Math.random() * wordBank.length)];
 
+// create variables needed for displaying spaces
+var placeHolder = "_ ";
+var letters = placeHolder.repeat(computerGuess.length);
+
+//split into a list of spaces so we can later iterate through
+var lettersLeft = letters.split(" ");
+
 // listening for user guess
 document.onkeyup = function(event) {
 
     // recording user's guess
     var userGuess = event.key.toLowerCase();
-
-    // create variables needed for displaying spaces
-    var placeHolder = "_ ";
-    var lettersLeft = placeHolder.repeat(computerChoice.length);
 
     //log to console what the user chose and the word the computer chose
     console.log("me: " + userGuess);
@@ -38,22 +41,40 @@ document.onkeyup = function(event) {
         }
         commaGuesses = []; //reinitializes commaGuesses as an empty array
         guesses.push(commaGuesses); //appends contents of commaGuesses to empty list guesses
-        remaining--; //decrements remaining guesses by 1
     }
-    else {
-        computerChoice = wordBank[Math.floor(Math.random() * wordBank.length)]; // shows 
+    else if (remaining === 0) {
+        remaining = "YOU LOSE";
+        // resets game
+        computerChoice = wordBank[Math.floor(Math.random() * wordBank.length)]; // chooses a new word
+        placeHolder = "_ ";
+        letters = placeHolder.repeat(computerGuess.length);
+        lettersLeft = letters.split(" ");
+        wins = 0;
+        remaining = 12;
+        commaGuesses = [];
+        guesses = [];
+        status = "???"
+    }
 
+    // for loop that cycles through the letters of the computer's chosen word to see if the user's guess is correct
+    for (var i = 0; i < computerGuess.length; i++) {
+        if (userGuess == computerGuess[i]) { 
+            lettersLeft[i] = userGuess; 
+            letters = lettersLeft.join(" ");
+            status = "RIGHT"
+        }
+        else {
+            status = "WRONG"
+        }
     }
+    remaining--; // decrements the number of guesses remaining
 
     
 
 
-    word.textContent = "Current word: " + lettersLeft;
-
+    word.textContent = "Current word: " + letters;
     winsText.textContent = "Wins: " + wins;
     numLeft.textContent = "Guesses left: " + remaining;
     soFar.textContent = "Your guesses so far: " + guesses;
     stat.textContent = "THAT LETTER WAS " + status;
-
-
 }

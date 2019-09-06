@@ -19,8 +19,14 @@ var stat = document.getElementById("status");
 
 
 
+
 // This function is run whenever the user presses a key.
 var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+var placeHolder = "_ ";
+var letters = placeHolder.repeat(computerGuess.length);
+var lettersLeft = letters.split(" ");
+
 document.onkeyup = function(event) {
 
 
@@ -30,8 +36,7 @@ document.onkeyup = function(event) {
     // Randomly chooses a choice from the options array. This is the Computer's guess.
 
 
-    var placeHolder = "_ ";
-    var lettersLeft = placeHolder.repeat(computerGuess.length);
+
     
     console.log("me: " + userGuess);
     console.log("word: " + computerGuess);
@@ -45,39 +50,31 @@ document.onkeyup = function(event) {
         }
         commaGuesses = [];
         guesses.push(commaGuesses);
-        remaining--;
     }
-    else {
-
+    else if (remaining === 0) {
         remaining = "YOU LOSE";
-        lettersLeft = "PLAY AGAIN? y/n"
-        if (userGuess === "y") {
-            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-            var wins = 0;
-            var remaining = 12;
-            var commaGuesses = [];
-            var guesses = [];
-            var status = "???"
-        }
-        else {
-            lettersLeft = "N/A";
-        }
+        computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        wins = 0;
+        remaining = 12;
+        commaGuesses = [];
+        guesses = [];
+        status = "???"
+
     }
 
     for (var i = 0; i < computerGuess.length; i++) {
-        if (remaining < 12){
-            if (guesses[i] === computerGuess[i]){
-                lettersLeft[i] = guesses[i];
-                console.log(lettersLeft);
-                status = "RIGHT"
-            }
-            else {
-                status = "WRONG"
+        if (userGuess == computerGuess[i]) {
+            lettersLeft[i] = userGuess;
+            letters = lettersLeft.join(" ");
+  
+            status = "RIGHT"
+        }
+        else {
 
-            }
+            status = "WRONG"
         }
     }
-
+    remaining--;
 
     // console.log(remaining);
     // if (remaining > 0) {
@@ -95,10 +92,10 @@ document.onkeyup = function(event) {
     //     remaining = "YOU LOSE";
     // }
     
-
+    // letters = lettersLeft.splice(computerGuess.length - 1);
     // Display the user and computer guesses, and wins/losses/ties.
     
-    word.textContent = "Current word: " + lettersLeft;
+    word.textContent = "Current word: " + letters;
 
     winsText.textContent = "Wins: " + wins;
     numLeft.textContent = "Guesses left: " + remaining;
