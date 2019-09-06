@@ -34,9 +34,6 @@ document.onkeyup = function(event) {
     var userGuess = event.key.toLowerCase();
 
     // Randomly chooses a choice from the options array. This is the Computer's guess.
-
-
-
     
     console.log("me: " + userGuess);
     console.log("word: " + computerGuess);
@@ -53,12 +50,13 @@ document.onkeyup = function(event) {
     }
     else if (remaining === 0) {
         remaining = "YOU LOSE";
-        computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-        wins = 0;
-        remaining = 12;
-        commaGuesses = [];
-        guesses = [];
-        status = "???"
+        // computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        // wins = 0;
+        // remaining = 12;
+        // commaGuesses = [];
+        // guesses = [];
+        // status = "???"
+        break
 
     }
 
@@ -66,8 +64,10 @@ document.onkeyup = function(event) {
         if (userGuess == computerGuess[i]) {
             lettersLeft[i] = userGuess;
             letters = lettersLeft.join(" ");
-  
             status = "RIGHT"
+        }
+        else if (userGuess == " ") {
+            status = "???";
         }
         else {
 
@@ -76,23 +76,9 @@ document.onkeyup = function(event) {
     }
     remaining--;
 
-    // console.log(remaining);
-    // if (remaining > 0) {
-    //     if (userGuess === computerGuess[i]){
-    //         lettersLeft[i] = userGuess;
-    //         console.log(lettersLeft);
-    //         remaining--;
-    //     }
-    //     else {
-    //         guesses.push(userGuess);
-    //         remaining--;
-    //     }
-    // }
-    // else {
-    //     remaining = "YOU LOSE";
-    // }
-    
-    // letters = lettersLeft.splice(computerGuess.length - 1);
+
+
+
     // Display the user and computer guesses, and wins/losses/ties.
     
     word.textContent = "Current word: " + letters;

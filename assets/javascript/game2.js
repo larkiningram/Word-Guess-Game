@@ -18,7 +18,7 @@ var computerChoice = wordBank[Math.floor(Math.random() * wordBank.length)];
 
 // create variables needed for displaying spaces
 var placeHolder = "_ ";
-var letters = placeHolder.repeat(computerGuess.length);
+var letters = placeHolder.repeat(computerChoice.length);
 
 //split into a list of spaces so we can later iterate through
 var lettersLeft = letters.split(" ");
@@ -31,7 +31,7 @@ document.onkeyup = function(event) {
 
     //log to console what the user chose and the word the computer chose
     console.log("me: " + userGuess);
-    console.log("word: " + computerGuess);
+    console.log("word: " + computerChoice);
 
     //conditionals for determining if the user has guesses left or not
     if (remaining > 0) {
@@ -47,7 +47,7 @@ document.onkeyup = function(event) {
         // resets game
         computerChoice = wordBank[Math.floor(Math.random() * wordBank.length)]; // chooses a new word
         placeHolder = "_ ";
-        letters = placeHolder.repeat(computerGuess.length);
+        letters = placeHolder.repeat(computerChoice.length);
         lettersLeft = letters.split(" ");
         wins = 0;
         remaining = 12;
@@ -57,11 +57,14 @@ document.onkeyup = function(event) {
     }
 
     // for loop that cycles through the letters of the computer's chosen word to see if the user's guess is correct
-    for (var i = 0; i < computerGuess.length; i++) {
-        if (userGuess == computerGuess[i]) { 
+    for (var i = 0; i < computerChoice.length; i++) {
+        if (userGuess == computerChoice[i]) { 
             lettersLeft[i] = userGuess; 
             letters = lettersLeft.join(" ");
             status = "RIGHT"
+        }
+        else if (userGuess == " ") {
+            status = "???";
         }
         else {
             status = "WRONG"
