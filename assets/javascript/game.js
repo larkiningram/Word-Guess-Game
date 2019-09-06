@@ -5,7 +5,7 @@ var computerChoices = ["madonna", "elvis", "marylin"];
 
 // Creating variables to hold the number of wins, losses, and tries left. They start at 0.
 var wins = 0;
-var remaining = 12;
+var remaining = 13;
 var commaGuesses = [];
 var guesses = [];
 var status = "???"
@@ -38,10 +38,6 @@ document.onkeyup = function(event) {
     
     // console.log(lettersLeft);
 
-    // Reworked our code from last step to use "else if" instead of lots of if statements.
-
-    // This logic determines the outcome of the game (win/loss/tie), and increments the appropriate number
-
     if (remaining > 0){
         for (var i = 0; i < computerGuess.length; i++) {
             commaGuesses.push(userGuess[i]);
@@ -52,18 +48,33 @@ document.onkeyup = function(event) {
         remaining--;
     }
     else {
+
         remaining = "YOU LOSE";
+        lettersLeft = "PLAY AGAIN? y/n"
+        if (userGuess === "y") {
+            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            var wins = 0;
+            var remaining = 12;
+            var commaGuesses = [];
+            var guesses = [];
+            var status = "???"
+        }
+        else {
+            lettersLeft = "N/A";
+        }
     }
 
     for (var i = 0; i < computerGuess.length; i++) {
-        if (guesses[i] === computerGuess[i]){
-            lettersLeft[i] = guesses[i];
-            console.log(lettersLeft);
-            status = "RIGHT"
-        }
-        else {
-            status = "WRONG"
+        if (remaining < 12){
+            if (guesses[i] === computerGuess[i]){
+                lettersLeft[i] = guesses[i];
+                console.log(lettersLeft);
+                status = "RIGHT"
+            }
+            else {
+                status = "WRONG"
 
+            }
         }
     }
 
