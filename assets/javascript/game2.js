@@ -33,18 +33,8 @@ document.onkeyup = function(event) {
     console.log("me: " + userGuess);
     console.log("word: " + computerChoice);
 
-    //conditionals for determining if the user has guesses left or not
-    if (remaining > 0) {
-        for (var i = 0; i < computerChoice.length; i++) {
-            commaGuesses.push(userGuess[i]); //appends user guess to empty list
-            commaGuesses.splice(1); //removes everything but the first index in commaGuesses
-        }
-        commaGuesses = []; //reinitializes commaGuesses as an empty array
-        guesses.push(commaGuesses); //appends contents of commaGuesses to empty list guesses
-    }
-    else if (remaining === 0) {
-        remaining = "YOU LOSE";
-        // resets game
+    // function to restart the game
+    function restart() {
         computerChoice = wordBank[Math.floor(Math.random() * wordBank.length)]; // chooses a new word
         placeHolder = "_ ";
         letters = placeHolder.repeat(computerChoice.length);
@@ -56,23 +46,43 @@ document.onkeyup = function(event) {
         status = "???"
     }
 
-    // for loop that cycles through the letters of the computer's chosen word to see if the user's guess is correct
-    for (var i = 0; i < computerChoice.length; i++) {
-        if (userGuess == computerChoice[i]) { 
-            lettersLeft[i] = userGuess; 
-            letters = lettersLeft.join(" ");
-            status = "RIGHT"
+    //conditionals for determining if the user has guesses left or not
+    if (remaining > 0) {
+        for (var i = 0; i < computerChoice.length; i++) {
+            commaGuesses.push(userGuess[i]); //appends user guess to empty list
+            commaGuesses.splice(1); //removes everything but the first index in commaGuesses
         }
-        else if (userGuess == " ") {
-            status = "???";
-        }
-        else {
-            status = "WRONG"
-        }
+        commaGuesses = []; //reinitializes commaGuesses as an empty array
+        guesses.push(commaGuesses); //appends contents of commaGuesses to empty list guesses
     }
-    remaining--; // decrements the number of guesses remaining
+    else if (remaining === 0) {
+        remaining = "YOU LOSE";
+        restart();
+    }
 
-    
+    //conditional that checks if the user has guessed the whole word
+    if (letters.includes("_ ") === true) {
+        // for loop that cycles through the letters of the computer's chosen word to see if the user's guess is correct
+        for (var i = 0; i < computerChoice.length; i++) {
+            if (userGuess == computerChoice[i]) { 
+                lettersLeft[i] = userGuess; 
+                letters = lettersLeft.join(" ");
+                status = "RIGHT"
+            }
+            else if (userGuess == " ") {
+                status = "???";
+            }
+            else {
+                status = "WRONG"
+            }
+        }
+        remaining--; // decrements the number of guesses remaining
+    }
+    else {
+        wins++;
+        remaining = "YOU WIN";
+        restart();
+    }
 
 
     word.textContent = "Current word: " + letters;
