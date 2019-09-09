@@ -1,5 +1,5 @@
 // initialized variables
-var wordBank = ["apple", "orange", "banana", "pear"];
+var wordBank = ["apple", "orange", "banana", "pear", "guava", "mango", "tomato", "peach", "nectarine", "grape", "pineapple", "watermelon", "lime", "lemon", "raspberry", "strawberry", "blueberry"];
 var wins = 0;
 var remaining = 12;
 var commaGuesses = [];
@@ -23,8 +23,20 @@ var letters = placeHolder.repeat(computerChoice.length);
 //split into a list of spaces so we can later iterate through
 var lettersLeft = letters.split(" ");
 
+// function to restart the game
+function restart() {
+    computerChoice = wordBank[Math.floor(Math.random() * wordBank.length)]; // chooses a new word
+    placeHolder = "_ ";
+    letters = placeHolder.repeat(computerChoice.length);
+    lettersLeft = letters.split(" ");
+    remaining = 12;
+    commaGuesses = [];
+    guesses = [];
+    status = "???"
+}
+
 // listening for user guess
-document.onkeyup = function(event) {
+document.onkeyup = function (event) {
 
     // recording user's guess
     var userGuess = event.key.toLowerCase();
@@ -32,19 +44,6 @@ document.onkeyup = function(event) {
     //log to console what the user chose and the word the computer chose
     console.log("me: " + userGuess);
     console.log("word: " + computerChoice);
-
-    // function to restart the game
-    function restart() {
-        computerChoice = wordBank[Math.floor(Math.random() * wordBank.length)]; // chooses a new word
-        placeHolder = "_ ";
-        letters = placeHolder.repeat(computerChoice.length);
-        lettersLeft = letters.split(" ");
-        // wins = 0;
-        remaining = 12;
-        commaGuesses = [];
-        guesses = [];
-        status = "???"
-    }
 
     //conditionals for determining if the user has guesses left or not
     if (remaining > 0) {
@@ -64,8 +63,8 @@ document.onkeyup = function(event) {
     if (letters.includes("_ ") === true) {
         // for loop that cycles through the letters of the computer's chosen word to see if the user's guess is correct
         for (var i = 0; i < computerChoice.length; i++) {
-            if (userGuess == computerChoice[i]) { 
-                lettersLeft[i] = userGuess; 
+            if (userGuess == computerChoice[i]) {
+                lettersLeft[i] = userGuess;
                 letters = lettersLeft.join(" ");
                 status = "RIGHT"
             }
@@ -85,9 +84,10 @@ document.onkeyup = function(event) {
     }
 
 
+
     word.textContent = "Current word: " + letters;
     winsText.textContent = "Wins: " + wins;
     numLeft.textContent = "Guesses left: " + remaining;
     soFar.textContent = "Your guesses so far: " + guesses;
     stat.textContent = "THAT LETTER WAS " + status;
-}
+};
