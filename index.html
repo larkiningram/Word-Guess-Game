@@ -1,26 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Word Guess</title>
 
+    <!-- Bootstrap File -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- updated portfolio link: https://larkiningram.github.io/Responsive-Portfolio/portfolio.html -->
 
+    <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
+
 <body>
-    <h1>Word Guess Game - Fruit</h1>
-    <!-- <h3 id="word">press "p" to select people, "f" to select fruit, or "a" to select people then press any key to start the game</h3> -->
-    <h3 id="word">press any key to start the game</h3>
-    <p id="status"></p>
-    <p id="wins-text">Wins: </p>
-    <p id="remain">Number of guesses remaining: </p>
-    <p id="past">Letters already guessed: </p>
-    
+    <div class="container text-center">
+        <div class="jumbotron">
+            <h1>Word Guess Game - Fruit</h1>
+            <hr width="93%">
+            <button class="start btn-lg">Start</button>
+        </div>
+
+        <!-- <h3 id="word">press "p" to select people, "f" to select fruit, or "a" to select people then press any key to start the game</h3> -->
+        <h3 id="word"></h3>
+        <p id="status"></p>
+        <p id="wins-text">Wins: 0</p>
+        <p id="remain">Number of guesses remaining: </p>
+        <p id="past">Letters already guessed: </p>
+        <div id="display"></div>
+    </div>
+
+    <div id="buttons" class="text-center"></div>
+
     <!-- <script type="text/javascript" src="assets/javascript/game.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script type="text/javascript" src="assets/javascript/game2.js"></script>
 
 </body>
+
 </html>
